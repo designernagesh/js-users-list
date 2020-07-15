@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Users List using API</title>  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@700;800;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="d-flex mt-4 justify-content-center">
+  <div class="container text-center">
+    <h1 class="display-3 text-danger">Users List using API</h1>    
+      <div class="row usersList">
+      </div>
+   </div>
+  </div>
+  <script>
+    let usersList = document.querySelector('.usersList');
+    fetch('https://reqres.in/api/users')
+      .then( response => response.json() )
+      .then( result => {
+        let users = result.data;
+        console.log(users);
+        let list = "";
+        users.map( user => {          
+          htmlSegment = `<div class="col-sm-4 mb-4">
+            <div class="card">
+              <img class="card-img-top" src="${user.avatar}" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">${user.first_name} ${user.last_name}</h5>
+                <p class="card-text">${user.email}</p>              
+              </div>
+            </div>
+          </div>`
+          list += htmlSegment;
+          return usersList.innerHTML = list;
+          })
+        });            
+  </script>
+</body>
+</html>
